@@ -24,8 +24,9 @@ public class CurrencyConverterController {
 
         ArrayList<String> tempList = new ArrayList<>(getCurrencies());
         tempList.addFirst("Select");
+        ArrayList<String> tempList1 = new ArrayList<>(tempList);
         view.setChoiceBoxSource(tempList);
-        view.setChoiceBoxTarget(tempList);
+        view.setChoiceBoxTarget(tempList1);
         view.setSourcePlaceholder("Select Currency");
         view.setTargetPlaceholder("Select Currency");
         view.setChoiceBoxSourceValue("Select");

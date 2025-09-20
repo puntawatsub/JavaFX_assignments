@@ -53,7 +53,7 @@ public class CurrencyConverterView extends Application {
 
         choiceBoxSource.setOnAction(event -> {
             controller.onSourceChoiceBoxChange();
-            removeSourceChoiceBoxPlaceholder();
+            choiceBoxSource.getItems().remove("Select");
         });
 
         target.setMinWidth(200);
@@ -74,14 +74,18 @@ public class CurrencyConverterView extends Application {
 
         choiceBoxTarget.setOnAction(event -> {
             controller.onTargetChoiceBoxChange();
-            removeTargetChoiceBoxPlaceholder();
+            choiceBoxTarget.getItems().remove("Select");
         });
 
         convertButton.setOnAction(event -> {
             controller.convertButtonPressed();
         });
 
+        hBox.getStyleClass().add("hBox");
+
         Scene scene = new Scene(hBox);
+
+        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
 
         stage.setScene(scene);
 
@@ -140,13 +144,5 @@ public class CurrencyConverterView extends Application {
 
     public String[] getChoiceBoxes() {
         return new String[]{(String) choiceBoxSource.getValue(), (String) choiceBoxTarget.getValue()};
-    }
-
-    public void removeSourceChoiceBoxPlaceholder() {
-        choiceBoxSource.getItems().remove("Select");
-    }
-
-    public void removeTargetChoiceBoxPlaceholder() {
-        choiceBoxTarget.getItems().remove("Select");
     }
 }
