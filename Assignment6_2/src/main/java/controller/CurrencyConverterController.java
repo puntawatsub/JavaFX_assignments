@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import model.CurrencyCollector;
 import view.CurrencyConverterView;
@@ -11,8 +12,6 @@ public class CurrencyConverterController {
 
     private CurrencyCollector currencyCollector;
     private CurrencyConverterView view;
-    private boolean sourceFirstChange = false;
-    private boolean targetFirstChange = false;
 
     public CurrencyConverterController(CurrencyConverterView view) {
         this.view = view;
@@ -59,18 +58,10 @@ public class CurrencyConverterController {
     }
 
     public void onSourceChoiceBoxChange() {
-        if (sourceFirstChange) {
-            sourceFirstChange = false;
-            view.setChoiceBoxSource(getCurrencies());
-        }
         view.setSourcePlaceholder(currencyCollector.getCurrencyName(view.getChoiceBoxes()[0]));
     }
 
     public void onTargetChoiceBoxChange() {
-        if (targetFirstChange) {
-            targetFirstChange = false;
-            view.setChoiceBoxTarget(getCurrencies());
-        }
         view.setTargetPlaceholder(currencyCollector.getCurrencyName(view.getChoiceBoxes()[1]));
     }
 }

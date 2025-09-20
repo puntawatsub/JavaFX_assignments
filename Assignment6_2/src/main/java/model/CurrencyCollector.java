@@ -37,7 +37,7 @@ public class CurrencyCollector {
         double c2_usd = Double.parseDouble(this.USD_val.get(c2)[1]);
 
         if (!Double.isNaN(c1_usd) && !Double.isNaN(c2_usd)) {
-            return (value / c1_usd) * c2_usd;
+            return (value / c2_usd) * c1_usd;
         }
         throw new IllegalArgumentException("Currency not found");
     }
