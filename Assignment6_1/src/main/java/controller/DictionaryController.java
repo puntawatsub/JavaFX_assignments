@@ -4,6 +4,8 @@ import javafx.scene.control.Label;
 import model.Dictionary;
 import view.DictionaryView;
 
+import java.util.Objects;
+
 public class DictionaryController {
 
     private Dictionary dictionary;
@@ -11,6 +13,7 @@ public class DictionaryController {
 
     public DictionaryController(DictionaryView view) {
         dictionary = new Dictionary();
+        this.view = view;
         dictionary.add("aakkonen", "alphabet");
         dictionary.add("kirja", "book");
         dictionary.add("talo", "house");
@@ -34,12 +37,13 @@ public class DictionaryController {
         dictionary.add("taivas", "sky");
     }
 
-    public String searchButtonPressed(String entry) {
+    public void searchButtonPressed(String entry) {
         String[] result = dictionary.search(entry);
         if (result != null) {
-            return result[1];
+            view.updateResult(result[1]);
+            view.emptySearchField();
         } else {
-            return "Result not found";
+            view.updateResult("Result Not Found");
         }
     }
 

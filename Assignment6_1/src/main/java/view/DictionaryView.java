@@ -19,6 +19,9 @@ public class DictionaryView extends Application {
 
     private DictionaryController controller;
 
+    private Label result = new Label("");
+    private TextField searchField = new TextField();
+
     @Override
     public void start(Stage stage) {
 
@@ -28,7 +31,6 @@ public class DictionaryView extends Application {
 
         HBox hBox = new HBox();
 
-        TextField searchField = new TextField();
         searchField.setPromptText("Entry");
         searchField.setMaxWidth(Double.MAX_VALUE);
         searchField.getStyleClass().add("search-input");
@@ -40,7 +42,6 @@ public class DictionaryView extends Application {
         hBox.setAlignment(Pos.CENTER);
         HBox.setHgrow(searchField, Priority.ALWAYS);
         HBox.setMargin(searchButton, new Insets(0, 0, 0, 10));
-        Label result = new Label("");
         result.getStyleClass().add("result-text");
 
         vBox.getChildren().addAll(hBox);
@@ -58,16 +59,20 @@ public class DictionaryView extends Application {
         stage.show();
 
         searchButton.setOnAction(event -> {
-            String text = controller.searchButtonPressed(searchField.getText());
-            result.setText(text);
-            if (!Objects.equals(text, "Result not found")) {
-                searchField.setText("");
-            }
+            controller.searchButtonPressed(searchField.getText());
         });
     }
 
     @Override
     public void init() {
         controller = new DictionaryController(this);
+    }
+
+    public void updateResult(String s) {
+        result.setText(s);
+    }
+
+    public void emptySearchField() {
+        searchField.setText("");
     }
 }
