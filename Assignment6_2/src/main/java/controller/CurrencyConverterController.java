@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import model.CurrencyCollector;
 import view.CurrencyConverterView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,12 +46,18 @@ public class CurrencyConverterController {
      */
     public void convert(String c1, String c2, Double value) {
         double result = currencyCollector.convertTo(c1, c2, value);
-        view.setTarget(Double.toString(result));
+        DecimalFormat df = new DecimalFormat("0.00####");
+        view.setTarget(df.format(result));
     }
 
     public void convertButtonPressed() {
         try {
-            Double value = Double.parseDouble(view.getSource());
+            String source = view.getSource();
+            if (source.matches(".*[,].*") && !source.matches(".*[.].*")) {
+                source = source.replaceAll("[,]", ".");
+            }
+            Double value = Double.parseDouble(source);
+            view.setSource(String.format("%.2f", value));
             String[] choiceBoxes = view.getChoiceBoxes();
             this.convert(choiceBoxes[0], choiceBoxes[1], value);
         } catch (Exception e) {

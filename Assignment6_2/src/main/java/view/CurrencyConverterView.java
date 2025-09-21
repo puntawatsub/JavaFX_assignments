@@ -23,12 +23,14 @@ public class CurrencyConverterView extends Application {
     private TextField source = new TextField();
     private TextField target = new TextField();
 
-    Alert alert = new Alert(Alert.AlertType.ERROR, "Please check the number format or select a currency.");
+    Alert alert = new Alert(Alert.AlertType.ERROR, "Please select currency or fill the number field.");
 
     @Override
     public void start(Stage stage) {
         stage.setTitle("Currency Converter");
         stage.setResizable(false);
+        target.setEditable(false);
+
 
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.BOTTOM_CENTER);
@@ -72,6 +74,14 @@ public class CurrencyConverterView extends Application {
             target.setText("");
         });
 
+        // input filtering
+        source.textProperty().addListener((observable, oldValue, newValue) -> {
+            // NOTE: ChatGPT generated regex
+            if (!newValue.matches("\\d*([.,]\\d{0,2})?")) {
+                source.setText(oldValue);
+            }
+        });
+
         choiceBoxTarget.setOnAction(event -> {
             controller.onTargetChoiceBoxChange();
             choiceBoxTarget.getItems().remove("Select");
@@ -89,7 +99,6 @@ public class CurrencyConverterView extends Application {
 
         stage.setScene(scene);
 
-        target.setEditable(false);
         stage.show();
     }
 
