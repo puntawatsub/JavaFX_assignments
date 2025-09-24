@@ -58,11 +58,14 @@ public class VirtualPetView extends Application {
         Scene scene = new Scene(stackPane);
 
         stage.setOnCloseRequest(windowEvent -> {
-            t.interrupt();
+            if (t != null) {
+                t.interrupt();
+            }
         });
 
         stage.setTitle("Virtual Pet");
         stage.setScene(scene);
+        stage.requestFocus();
         stage.show();
     }
 
