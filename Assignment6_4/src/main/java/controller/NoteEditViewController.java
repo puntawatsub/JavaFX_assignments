@@ -21,6 +21,10 @@ public class NoteEditViewController {
     private Button editAddButton;
 
     public void start(Stage stage, Note note) {
+
+        titleField.setText(note.getTitle());
+        contentField.setText(note.getContent());
+
         titleField.focusedProperty().addListener((observable, oldVal, isFocused) -> {
             if (!isFocused) {
                 if (titleField.getText().isBlank()) {

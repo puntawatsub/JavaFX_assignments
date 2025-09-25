@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import model.Note;
 
 public class NoteListController {
     @FXML
@@ -16,5 +17,7 @@ public class NoteListController {
     public Label listViewTitle;
 
     @FXML
-    private ContextMenu contextMenu;
+    public ContextMenu contextMenu;
+
+    public Note note;
 }

@@ -62,6 +62,11 @@ public class NoteListViewController {
                 noteListController.listViewLabel.setText(note.getContent());
                 noteListController.listViewTitle.setText(note.getTitle());
 
+                listViewNode.setOnMouseClicked(event -> {
+                    startEditGUI(note);
+                    stage.close();
+                });
+
                 flowPane.getChildren().add(listViewNode);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -75,17 +80,21 @@ public class NoteListViewController {
             Note note = new Note();
             note.setTitle("Untitled");
             note.setContent("");
-            noteEditView = new NoteEditView(note);
-            try {
-                noteEditView.startGUI();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            startEditGUI(note);
             stage.close();
         });
     }
 
     public Notebook getNotebook() {
         return notebook;
+    }
+
+    private void startEditGUI(Note note) {
+        noteEditView = new NoteEditView(note);
+        try {
+            noteEditView.startGUI();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -45,7 +45,7 @@ public class Notebook implements Serializable {
         try (FileInputStream fis = new FileInputStream("note.ser");
         ObjectInputStream ois = new ObjectInputStream(fis)) {
             Notebook notebook = (Notebook) ois.readObject();
-            this.notes = Arrays.stream(notebook.getNotes()).toList();
+            this.notes = new ArrayList<>(List.of(notebook.getNotes()));
         } catch (FileNotFoundException e) {} catch (IOException e) {} catch (ClassNotFoundException e) {}
     }
 }

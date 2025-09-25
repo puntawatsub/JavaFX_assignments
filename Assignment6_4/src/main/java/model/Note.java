@@ -6,6 +6,7 @@ public class Note implements Serializable {
 
     private String title;
     private String content;
+    private static int idCount = 0;
 
     public Note() {};
 
