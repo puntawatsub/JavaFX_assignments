@@ -24,6 +24,11 @@ public class Notebook implements Serializable {
         notes.add(note);
     }
 
+    public void removeNote(Note note) {
+        notes.remove(note);
+        writeNotebook();
+    }
+
     public Note[] getNotes() {
         return notes.toArray(new Note[0]);
     }

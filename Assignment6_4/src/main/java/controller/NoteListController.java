@@ -16,8 +16,5 @@ public class NoteListController {
     @FXML
     public Label listViewTitle;
 
-    @FXML
-    public ContextMenu contextMenu;
-
     public Note note;
 }

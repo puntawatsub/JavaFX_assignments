@@ -6,7 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -37,17 +40,6 @@ public class NoteListViewController {
 
 
     public void start(Stage stage) {
-//        for (int i = 0; i < 10; i++) {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/reusables/NoteList.fxml"));
-//            Parent listViewNode = loader.load();
-//            NoteListController noteListController = loader.getController();
-//
-//            noteListController.listViewLabel.setText("Banana");
-//            noteListController.listViewTitle.setText("Banana");
-//
-//            flowPane.getChildren().add(listViewNode);
-//        }
-
         notebook = Notebook.getInstance();
 
         notebook.loadNotebook();
@@ -62,9 +54,21 @@ public class NoteListViewController {
                 noteListController.listViewLabel.setText(note.getContent());
                 noteListController.listViewTitle.setText(note.getTitle());
 
+                ContextMenu contextMenu = new ContextMenu();
+                MenuItem delete = new MenuItem("Delete");
+                delete.setOnAction(event -> {
+                    Notebook.getInstance().removeNote(note);
+                    listViewNode.setScaleX(0);
+                    listViewNode.setScaleY(0);
+                });
+                contextMenu.getItems().add(delete);
+                noteListController.listViewLabel.setContextMenu(contextMenu);
+
                 listViewNode.setOnMouseClicked(event -> {
-                    startEditGUI(note);
-                    stage.close();
+                    if (event.getButton() == MouseButton.PRIMARY) {
+                        startEditGUI(note);
+                        stage.close();
+                    }
                 });
 
                 flowPane.getChildren().add(listViewNode);

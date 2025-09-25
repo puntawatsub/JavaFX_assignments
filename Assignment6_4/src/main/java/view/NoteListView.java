@@ -11,12 +11,23 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class NoteListView extends Application {
 
     private NoteListViewController controller;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
+        try {
+            loadGUI();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadGUI() throws IOException {
+        Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/NoteListView.fxml"));
         Parent root = fxmlLoader.load();
 
