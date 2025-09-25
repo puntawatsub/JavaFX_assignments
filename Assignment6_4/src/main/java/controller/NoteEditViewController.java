@@ -79,6 +79,12 @@ public class NoteEditViewController {
                         }
                     }
                 });
+            } else {
+                try {
+                    new NoteListView().loadGUI();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         });
