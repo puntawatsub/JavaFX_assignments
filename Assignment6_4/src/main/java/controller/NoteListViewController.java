@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -58,8 +59,9 @@ public class NoteListViewController {
                 MenuItem delete = new MenuItem("Delete");
                 delete.setOnAction(event -> {
                     Notebook.getInstance().removeNote(note);
-                    listViewNode.setScaleX(0);
-                    listViewNode.setScaleY(0);
+                    Platform.runLater(() -> {
+                        flowPane.getChildren().remove(listViewNode);
+                    });
                 });
                 contextMenu.getItems().add(delete);
                 noteListController.listViewLabel.setContextMenu(contextMenu);
