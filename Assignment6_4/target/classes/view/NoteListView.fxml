@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" opacity="0.8" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NoteListViewController">
+   <children>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="210.0" layoutY="85.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+         <content>
+            <AnchorPane>
+               <children>
+                  <FlowPane fx:id="flowPane" hgap="10.0" maxWidth="600.0" prefWidth="600.0" style="-fx-padding: 20;" vgap="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-16.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </FlowPane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <Label layoutX="-1.0" text="Notes" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="12.0">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Button layoutX="531.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="+" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="6.0">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
