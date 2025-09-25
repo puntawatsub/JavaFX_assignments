@@ -7,9 +7,17 @@ import java.util.List;
 
 public class Notebook implements Serializable {
     private List<Note> notes;
+    public static Notebook instance;
 
-    public Notebook() {
+    private Notebook() {
         notes = new ArrayList<>();
+    }
+
+    public static Notebook getInstance() {
+        if (instance == null) {
+            instance = new Notebook();
+        }
+        return instance;
     }
 
     public void addNote(Note note) {

@@ -21,7 +21,7 @@ public class NoteListView extends Application {
         Parent root = fxmlLoader.load();
 
         controller = fxmlLoader.getController();
-        controller.start();
+        controller.start(stage);
 
         Scene scene = new Scene(root);
 
