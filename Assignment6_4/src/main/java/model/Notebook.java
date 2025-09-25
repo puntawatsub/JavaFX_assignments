@@ -9,6 +9,8 @@ public class Notebook implements Serializable {
     private List<Note> notes;
     public static Notebook instance;
 
+    final String FILE_LOCATION = "note.ser";
+
     private Notebook() {
         notes = new ArrayList<>();
     }
@@ -34,7 +36,7 @@ public class Notebook implements Serializable {
     }
 
     public void writeNotebook() {
-        try (FileOutputStream fos = new FileOutputStream("note.ser");
+        try (FileOutputStream fos = new FileOutputStream(FILE_LOCATION);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(this);
             oos.close();
@@ -47,7 +49,7 @@ public class Notebook implements Serializable {
     }
 
     public void loadNotebook() {
-        try (FileInputStream fis = new FileInputStream("note.ser");
+        try (FileInputStream fis = new FileInputStream(FILE_LOCATION);
         ObjectInputStream ois = new ObjectInputStream(fis)) {
             Notebook notebook = (Notebook) ois.readObject();
             this.notes = new ArrayList<>(List.of(notebook.getNotes()));
