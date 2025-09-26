@@ -38,18 +38,21 @@ public class NoteListViewController {
     @FXML
     private Button displayInListButton;
 
+    private Stage stage;
 
+    @FXML
+    public void displayListButtonAction() {
+        stage.close();
+        try {
+            new NoteListView().setList(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void start(Stage stage) {
 
-        displayInListButton.setOnAction(event -> {
-            stage.close();
-            try {
-                new NoteListView().setList(true);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        this.stage = stage;
 
         notebook = Notebook.getInstance();
 

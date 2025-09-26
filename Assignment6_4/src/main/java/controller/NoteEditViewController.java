@@ -24,8 +24,22 @@ public class NoteEditViewController {
 
     private boolean recentlyChanged = false;
 
+    private Note note;
+
+    @FXML
+    private void onAdd() {
+        note.setContent(contentField.getText());
+        note.setTitle(titleField.getText());
+        if (!Arrays.stream(Notebook.getInstance().getNotes()).toList().contains(note)) {
+            Notebook.getInstance().addNote(note);
+        }
+        Notebook.getInstance().writeNotebook();
+        recentlyChanged = false;
+    }
+
     public void start(Stage stage, Note note) {
 
+        this.note = note;
         titleField.setText(note.getTitle());
         contentField.setText(note.getContent());
 
@@ -45,10 +59,6 @@ public class NoteEditViewController {
             recentlyChanged = true;
         });
 
-        editAddButton.setOnAction(event -> {
-            onAdd(note);
-        });
-
         stage.setOnCloseRequest(event -> {
             if (recentlyChanged) {
                 event.consume();
@@ -63,7 +73,7 @@ public class NoteEditViewController {
 
                 alert.showAndWait().ifPresent(response -> {
                     if (response == add) {
-                        onAdd(note);
+                        onAdd();
                         stage.close();
                         try {
                             new NoteListView().loadGUI();
@@ -88,15 +98,5 @@ public class NoteEditViewController {
             }
 
         });
-    }
-
-    private void onAdd(Note note) {
-        note.setContent(contentField.getText());
-        note.setTitle(titleField.getText());
-        if (!Arrays.stream(Notebook.getInstance().getNotes()).toList().contains(note)) {
-            Notebook.getInstance().addNote(note);
-        }
-        Notebook.getInstance().writeNotebook();
-        recentlyChanged = false;
     }
 }
