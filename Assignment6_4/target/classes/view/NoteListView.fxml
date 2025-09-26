@@ -33,5 +33,6 @@
             <Font size="19.0" />
          </font>
       </Button>
+      <Button fx:id="displayInListButton" layoutX="256.0" layoutY="13.0" mnemonicParsing="false" text="Display in list" AnchorPane.leftAnchor="256.0" AnchorPane.rightAnchor="256.0" AnchorPane.topAnchor="13.0" />
    </children>
 </AnchorPane>

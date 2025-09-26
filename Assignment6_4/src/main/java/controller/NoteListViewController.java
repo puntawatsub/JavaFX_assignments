@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import model.Note;
 import model.Notebook;
 import view.NoteEditView;
+import view.NoteListView;
 
 import java.io.IOException;
 
@@ -34,8 +35,22 @@ public class NoteListViewController {
 
     private NoteEditView noteEditView;
 
+    @FXML
+    private Button displayInListButton;
+
+
 
     public void start(Stage stage) {
+
+        displayInListButton.setOnAction(event -> {
+            stage.close();
+            try {
+                new NoteListView().setList(true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         notebook = Notebook.getInstance();
 
         notebook.loadNotebook();
