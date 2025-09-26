@@ -1,25 +1,20 @@
 package controller;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Note;
 import model.Notebook;
 import view.NoteEditView;
 
-import java.awt.Dimension;
 import java.io.IOException;
 
 public class NoteListViewController {
@@ -50,10 +45,10 @@ public class NoteListViewController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/reusables/NoteList.fxml"));
                 Parent listViewNode = loader.load();
-                NoteListController noteListController = loader.getController();
+                NoteListReusableController noteListReusableController = loader.getController();
 
-                noteListController.listViewLabel.setText(note.getContent());
-                noteListController.listViewTitle.setText(note.getTitle());
+                noteListReusableController.listViewLabel.setText(note.getContent());
+                noteListReusableController.listViewTitle.setText(note.getTitle());
 
                 ContextMenu contextMenu = new ContextMenu();
                 MenuItem delete = new MenuItem("Delete");
@@ -64,7 +59,7 @@ public class NoteListViewController {
                     });
                 });
                 contextMenu.getItems().add(delete);
-                noteListController.listViewLabel.setContextMenu(contextMenu);
+                noteListReusableController.listViewLabel.setContextMenu(contextMenu);
 
                 listViewNode.setOnMouseClicked(event -> {
                     if (event.getButton() == MouseButton.PRIMARY) {
