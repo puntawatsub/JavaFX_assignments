@@ -37,6 +37,11 @@ public class NoteEditViewController {
         recentlyChanged = false;
     }
 
+    @FXML
+    private void onTitleSelect() {
+        titleField.selectAll();
+    }
+
     public void start(Stage stage, Note note) {
 
         this.note = note;
