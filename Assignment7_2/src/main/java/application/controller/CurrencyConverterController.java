@@ -46,10 +46,17 @@ public class CurrencyConverterController {
     public void convert(String c1, String c2, Double value) {
         try {
             double result = currencyCollector.convertTo(c1, c2, value);
+            if (Double.isInfinite(result)) {
+                throw new NumberFormatException("Cannot divide by zero");
+            } else if (Double.isNaN(result)) {
+                throw new NumberFormatException("Value is not a number");
+            }
             DecimalFormat df = new DecimalFormat("0.00####");
             view.setTarget(df.format(result));
         } catch (SQLException e) {
             view.showSQLError();
+        } catch (NumberFormatException e) {
+            view.showAlert();
         }
     }
 
