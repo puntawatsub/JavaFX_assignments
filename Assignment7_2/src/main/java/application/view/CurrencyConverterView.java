@@ -166,7 +166,7 @@ public class CurrencyConverterView extends Application {
     }
 
     public void showSQLError() {
-        System.out.println("AHHHH");
+        System.err.println("AHHHH WHYYYY CHECK YOUR DATABASE");
         Platform.runLater(() -> {
             SQLAlert.setTitle("Database Error");
             SQLAlert.setHeaderText("Cannot retrieve currency data");
