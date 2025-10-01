@@ -39,10 +39,21 @@ public class CurrencyDao {
     }
 
     public String getCurrencyName(String a) {
+        if (a != null) {
+            EntityManager em = JpaConnection.getInstance();
+            Query query = em.createQuery("SELECT e.currency_name FROM CurrencyEntity e WHERE e.abbreviation = :abb");
+            System.out.println("Query: " + a);
+            query.setParameter("abb", a);
+            return (String) query.getSingleResult();
+        }
+        return null;
+    }
+
+    public void persist(CurrencyEntity c) {
         EntityManager em = JpaConnection.getInstance();
-        Query query = em.createQuery("SELECT e.currency_name FROM CurrencyEntity e WHERE e.abbreviation = :abb");
-        query.setParameter("abb", a);
-        return (String) query.getSingleResult();
+        em.getTransaction().begin();
+        em.persist(c);
+        em.getTransaction().commit();
     }
 
 }

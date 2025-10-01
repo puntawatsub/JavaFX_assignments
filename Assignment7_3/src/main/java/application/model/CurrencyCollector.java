@@ -2,6 +2,7 @@ package application.model;
 
 import dao.CurrencyDao;
 import entity.CurrencyEntity;
+import org.hibernate.service.spi.ServiceException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class CurrencyCollector {
 
     public CurrencyCollector() {};
 
-    private CurrencyDao getDao() {
+    public CurrencyDao getDao() {
         if (dao == null) {
             dao = new CurrencyDao();
         }
@@ -50,7 +51,13 @@ public class CurrencyCollector {
     }
 
     public List<String> getCurrencies() throws SQLException {
-        return getDao().getAllCurrencyAbbr();
+        List<String> result;
+        try {
+            result = getDao().getAllCurrencyAbbr();
+        } catch (Exception e) {
+            throw new SQLException();
+        }
+        return result;
     }
 
     /**
@@ -59,7 +66,14 @@ public class CurrencyCollector {
      * @return currency full name
      */
     public String getCurrencyName(String abb) throws SQLException {
-        return getDao().getCurrencyName(abb);
+        String result;
+        try {
+            result = getDao().getCurrencyName(abb);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new SQLException();
+        }
+        return result;
     }
 
 }

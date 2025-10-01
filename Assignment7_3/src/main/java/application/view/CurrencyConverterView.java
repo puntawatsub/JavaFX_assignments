@@ -8,19 +8,24 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import de.jangassen.MenuToolkit;
 
 public class CurrencyConverterView extends Application {
 
     private CurrencyConverterController controller;
 
-    private ChoiceBox choiceBoxSource = new ChoiceBox<>();
-    private ChoiceBox choiceBoxTarget = new ChoiceBox<>();
+    private ChoiceBox choiceBoxSource = new ChoiceBox<>();;
+    private ChoiceBox choiceBoxTarget = new ChoiceBox<>();;
     private TextField source = new TextField();
     private TextField target = new TextField();
 
@@ -32,6 +37,10 @@ public class CurrencyConverterView extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        loadMain();
+    }
+
+    public void loadMain() {
         stage = new Stage();
         stage.setTitle("Currency Converter");
         stage.setResizable(false);
@@ -99,11 +108,36 @@ public class CurrencyConverterView extends Application {
 
         hBox.getStyleClass().add("hBox");
 
-        Scene scene = new Scene(hBox);
+        MenuBar menuBar = new MenuBar();
+        Menu fileMenu = new Menu("File");
+        MenuItem newItem = new MenuItem("New Currency");
+        newItem.setOnAction(event -> {
+            try {
+                controller.newCurrency();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        fileMenu.getItems().add(newItem);
+        String OS = System.getProperty("os.name").toLowerCase();
+        Scene scene;
+        if (!(OS.contains("darwin") || OS.contains("mac"))) {
+            newItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.SHORTCUT_DOWN));
+            menuBar.getMenus().add(fileMenu);
+            VBox root = new VBox(hBox);
+            root.getChildren().addFirst(menuBar);
+            scene = new Scene(root);
+            stage.setScene(scene);
+        } else {
+            MenuToolkit tk = MenuToolkit.toolkit();
+            newItem.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.META_DOWN));
+            menuBar.getMenus().addAll(tk.createDefaultApplicationMenu("Currency") ,fileMenu);
+            scene = new Scene(hBox);
+            stage.setScene(scene);
+            MenuToolkit.toolkit().setMenuBar(stage, menuBar);
+        }
 
         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
-
-        stage.setScene(scene);
 
         if (!SQLAlert.isShowing()) {
             stage.show();
@@ -116,10 +150,12 @@ public class CurrencyConverterView extends Application {
     }
 
     public void setChoiceBoxSource(List<String> list) {
+        choiceBoxSource.setValue(list.getFirst());
         choiceBoxSource.setItems(FXCollections.observableList(list));
     }
 
     public void setChoiceBoxTarget(List<String> list) {
+        choiceBoxTarget.setValue(list.getFirst());
         choiceBoxTarget.setItems(FXCollections.observableList(list));
     }
 
@@ -175,6 +211,5 @@ public class CurrencyConverterView extends Application {
                 Platform.exit();
             });
         });
-
     }
 }

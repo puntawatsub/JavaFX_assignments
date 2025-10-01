@@ -2,7 +2,13 @@ package application.controller;
 
 import application.model.CurrencyCollector;
 import application.view.CurrencyConverterView;
+import dao.CurrencyDao;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -89,5 +95,21 @@ public class CurrencyConverterController {
         } catch (SQLException e) {
             view.showSQLError();
         }
+    }
+
+    public void newCurrency() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/newCurrency_view.fxml"));
+        Scene scene = new Scene(loader.load());
+        NewCurrencyViewController controller = loader.getController();
+        controller.init(stage, currencyCollector.getDao(), view);
+        stage.setScene(scene);
+        stage.showAndWait();
+        Platform.runLater(() -> {
+            view.setChoiceBoxTarget(new ArrayList<>(getCurrencies()));
+            view.setChoiceBoxSource(new ArrayList<>(getCurrencies()));
+            view.setChoiceBoxTargetValue(getCurrencies().get(0));
+            view.setChoiceBoxSourceValue(getCurrencies().get(0));
+        });
     }
 }

@@ -21,4 +21,4 @@ INSERT INTO CURRENCY (abbreviation, currency_name, val_usd) VALUES
 
 DROP USER IF EXISTS 'appuser'@'localhost';
 CREATE USER 'appuser'@'localhost' IDENTIFIED BY 'password';
-GRANT SELECT ON currency.CURRENCY TO 'appuser'@'localhost';
+GRANT SELECT, UPDATE, INSERT ON currency.CURRENCY TO 'appuser'@'localhost';
