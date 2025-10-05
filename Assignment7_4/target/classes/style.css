@@ -1,0 +1,9 @@
+.hBox {
+    -fx-font-size: 18;
+    -fx-font-family: "sans-serif";
+}
+
+.convert-button {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: white;
+}
