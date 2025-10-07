@@ -18,6 +18,7 @@ public class CurrencyDao {
         return (List<CurrencyEntity>) em.createQuery("select e from CurrencyEntity e").getResultList();
     }
 
+    // test
     public CurrencyEntity getCurrency(String a) {
         EntityManager em = JpaConnection.getInstance();
         Query query = em.createQuery("SELECT e FROM CurrencyEntity e WHERE e.abbreviation = :abb");
